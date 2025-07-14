@@ -145,6 +145,7 @@
         max-height: 700px;
         max-width: 700px;
         margin: 0 auto;
+        overflow-x: hidden;
 
         /* padding: 1rem; */
         /* border-width: 2px; */
