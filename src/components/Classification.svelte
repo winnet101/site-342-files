@@ -141,7 +141,7 @@
         display: block;
         height: 50px;
         width: 50px;
-        background-image: url(/public/amida.svg);
+        background-image: url(/amida.svg);
         animation:
             rotate 2s infinite linear reverse,
             flicker 100ms infinite linear;

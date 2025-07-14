@@ -3,13 +3,18 @@
 
     let { loggedIn = $bindable() }: { loggedIn: boolean } = $props();
 
-    let messages: string[] = $state([]);
+    let messages: string[] = $state(["Enter a command or type 'help'."]);
     let isLoading = $state(false);
     let triggerAnimation = $state(false);
 
     async function parseInput(value: string) {
         value = value.toLocaleLowerCase();
         switch (value) {
+            case "delta delta omega sigma override":
+                for (let i = 0; i < 50; i++) {
+                    messages.push("SIGMA");
+                }
+                break;
             case "help":
             case "?":
                 messages.push("Type 'list' to view all available files.");
@@ -27,12 +32,12 @@
 
                 break;
             case "clear":
-                messages = [];
+                messages = ["Enter a command or type 'help'."];
                 break;
             case "scp-10442":
             case "10442":
                 messages.push("Loading...");
-                messages.push("");
+                messages.push();
 
                 triggerAnimation = true;
                 await wait(1000);
@@ -87,7 +92,7 @@
                 onSubmit={async (value) => {
                     isLoading = true;
                     messages.push(`> ${value}`);
-                    await wait(200);
+                    await wait(250);
                     await parseInput(value);
                 }}
                 showButton={false}
@@ -114,6 +119,7 @@
     .message-container {
         /* height: 10em; */
         width: 100vw;
+        max-width: inherit;
     }
 
     .header-container {
@@ -122,16 +128,19 @@
         align-items: center;
         flex-direction: column;
         margin: 1em;
+        max-width: inherit;
     }
 
     :global(.stringInput_input_global_class) {
         background-color: black;
         border-width: 0;
+        /* border-bottom: 1px solid var(--purple-1); */
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        height: 1em;
+        height: 1.1em;
         font-family: var(--font-typewrite);
+        width: auto;
         /* width: 100vw; */
     }
 
@@ -145,7 +154,7 @@
         max-height: 700px;
         max-width: 700px;
         margin: 0 auto;
-        overflow-x: hidden;
+        /* overflow: hidden; */
 
         /* padding: 1rem; */
         /* border-width: 2px; */
@@ -159,6 +168,7 @@
         display: grid;
         grid-template-columns: auto 1fr;
         width: 100vw;
+        max-width: inherit;
         overflow: hidden;
     }
 </style>
