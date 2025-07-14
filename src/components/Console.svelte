@@ -1,20 +1,22 @@
 <script lang="ts">
+    // TODO: create better transition between console and article
+    // loading bar?
+
     import StringInput from "../lib/StringInput.svelte";
 
     let { loggedIn = $bindable() }: { loggedIn: boolean } = $props();
 
     let messages: string[] = $state(["Enter a command or type 'help'."]);
     let isLoading = $state(false);
-    let triggerAnimation = $state(false);
 
     async function parseInput(value: string) {
         value = value.toLocaleLowerCase();
         switch (value) {
-            case "delta delta omega sigma override":
-                for (let i = 0; i < 50; i++) {
-                    messages.push("SIGMA");
-                }
-                break;
+            // case "delta delta omega sigma override":
+            //     for (let i = 0; i < 50; i++) {
+            //         messages.push("aaaaaaaaaaaa");
+            //     }
+            //     break;
             case "help":
             case "?":
                 messages.push("Type 'list' to view all available files.");
@@ -39,7 +41,6 @@
                 messages.push("Loading...");
                 messages.push();
 
-                triggerAnimation = true;
                 await wait(1000);
                 messages = [];
                 window.scrollTo({ top: 0, behavior: "smooth" });
@@ -65,7 +66,7 @@
     }
 </script>
 
-<div class={`console-container ${triggerAnimation ? "slide" : ""}`}>
+<div class={`console-container`}>
     <div class="header-container">
         <h1 class="header">SITE-342</h1>
         <sub class="sub">Secure Foundation Terminal v3.4.2</sub>
@@ -118,6 +119,7 @@
 
     .message-container {
         /* height: 10em; */
+        margin-top: 2em;
         width: 100vw;
         max-width: inherit;
     }

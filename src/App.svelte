@@ -3,6 +3,11 @@
     import Console from "./components/Console.svelte";
 
     let loggedIn = $state(false);
+
+    // TODO:
+    // change highlight color (probably red bg white text)
+    // add epilepsy warning
+    // add redirect to a version without the flashing background (and persist between reloads!!)
 </script>
 
 <div class="overlay"></div>
@@ -19,7 +24,7 @@
         width: 100%;
         height: 100%;
         z-index: 32;
-        background: url("https://invertedfate.com/images/crt-filter2.png");
+        background: url("/crt-filter2.png");
         pointer-events: none;
         opacity: 0.4;
         zoom: 200%;
