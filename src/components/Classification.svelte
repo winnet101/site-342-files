@@ -49,7 +49,7 @@
                 "class"
                 "dis"
                 "risk";
-            max-width: 400px;
+            max-width: 500px;
         }
 
         .disrupt,
@@ -91,13 +91,13 @@
         flex-direction: column;
         justify-content: center;
         text-transform: uppercase;
-        background-color: rgb(72, 0, 0);
+        background-color: var(--purple-5);
         padding: 0.2em;
         /* padding-bottom: 0.4em; */
         padding-left: 0.4em;
-        border-left: rgb(189, 0, 0) 0.8rem solid;
+        border-left: 0.2em solid var(--purple-1);
         /* align-items: center; */
-        text-shadow: 0 0 20px red;
+        text-shadow: 0 0 20px var(--purple-0);
     }
 
     .sub {
@@ -126,14 +126,14 @@
     .icon {
         height: 50px;
         width: 50px;
-        background: red;
+        background: var(--purple-0);
         border: 5px solid white;
         border-radius: 50px;
         position: absolute;
         right: 1em;
         /* image-rendering: pixelated; */
         filter: blur(0.2px);
-        box-shadow: 0 0 20px red;
+        box-shadow: 0 0 20px var(--purple-0);
     }
 
     .icon::after {
@@ -148,6 +148,12 @@
         filter: blur(0.7px) !important;
         position: relative;
         z-index: 300;
+    }
+
+    @media (max-width: 350px) {
+        .icon {
+            display: none;
+        }
     }
 
     @keyframes rotate {

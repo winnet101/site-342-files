@@ -122,6 +122,7 @@
         margin-top: 2em;
         width: 100vw;
         max-width: inherit;
+        overflow: hidden;
     }
 
     .header-container {
@@ -140,6 +141,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        line-height: 1.1em;
         height: 1.1em;
         font-family: var(--font-typewrite);
         width: auto;

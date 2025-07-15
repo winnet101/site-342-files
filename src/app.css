@@ -47,6 +47,11 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
+*::selection {
+    background-color: white;
+    color: var(--purple-0);
+}
+
 a {
     font-weight: 500;
     color: #646cff;

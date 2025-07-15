@@ -23,9 +23,13 @@
             >TURN BACK NOW OR FACE THE CONSEQUENCES.<br />THIS IS YOUR FINAL
             WARNING.
         </sub>
-        <div style="height: 300vh;"></div>
+        <!-- <div style="height: 200vh;"></div> -->
     </div>
 
+    <div
+        class="gradient"
+        style="height: 20vh; background: linear-gradient(transparent 0%, transparent 10%, black 100%)"
+    ></div>
     <div class="main-container">
         <div
             style="height: 20vh; background:black; z-index: 99; position: relative;"
@@ -35,7 +39,6 @@
             <Classification
                 data={{ classification: "apollyon", disrupt: 5, risk: 5 }}
             />
-
             <h2>Lorem ipsum</h2>
             <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -72,10 +75,13 @@
         height: 100%;
         width: 100%;
         background: linear-gradient(
-            rgba(0, 0, 0, 1) 0%,
-            rgb(42, 0, 0) 30%,
-            red 65%,
-            rgba(255, 0, 0, 1) 90%
+            black 0%,
+            rgb(98, 0, 0) 25%,
+            rgb(193, 0, 0) 40%,
+            red 60%,
+            red 80%,
+            rgb(60, 0, 0) 90%,
+            rgb(4, 0, 0) 100%
         );
         z-index: -99;
     }
@@ -96,6 +102,10 @@
         display: block; */
     }
 
+    /* .warning:last-child {
+        animation: horizontal-shake 100ms linear infinite;
+    } */
+
     .main {
         width: 80%;
         max-width: 700px;
@@ -106,27 +116,23 @@
 
     .main-container {
         background-color: black;
-        box-shadow:
-            0 0 400px black,
-            0 0 400px black,
-            0 0 400px black,
-            0 0 400px black,
-            0 0 400px black,
-            0 0 200px black,
-            0 0 200px black,
-            0 0 200px black,
-            0 0 20px black,
-            0 0 100px black,
-            0 0 100px black,
-            0 0 100px black,
-            0 0 100px black,
-            0 0 50px black,
-            0 0 50px black,
-            0 0 50px black,
-            0 0 50px black,
-            0 0 25px black,
-            0 0 25px black,
-            0 0 25px black,
-            0 0 25px black;
+    }
+
+    @keyframes horizontal-shake {
+        0% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(1px, 1px);
+        }
+        50% {
+            transform: translate(-1px, 1px);
+        }
+        75% {
+            transform: translate(1px, -1px);
+        }
+        100% {
+            transform: translate(-1px, -1px);
+        }
     }
 </style>

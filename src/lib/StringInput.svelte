@@ -6,6 +6,7 @@
         submitOnEnter = true,
         clearWhenSubmitted = true,
         acceptEmpty = false,
+        trimValue = true,
         showButton = true,
         ...props
     }: Partial<HTMLInputAttributes> & {
@@ -15,6 +16,7 @@
         submitOnEnter?: boolean;
         clearWhenSubmitted?: boolean;
         acceptEmpty?: boolean;
+        trimValue?: boolean;
         showButton?: boolean;
     } = $props();
 
@@ -26,7 +28,7 @@
         if (clearWhenSubmitted) {
             value = "";
         }
-        await onSubmit(valueTrimmed);
+        await onSubmit(trimValue ? valueTrimmed : value);
     }
 </script>
 
