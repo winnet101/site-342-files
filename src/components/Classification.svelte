@@ -14,12 +14,12 @@
     <div class="disrupt">
         <div class="sub">DISRUPTION CLASS:{"  "}</div>
         <div class="data">{data.disrupt} [AMIDA]</div>
-        <div class="icon"></div>
+        <!-- <div class="icon"></div> -->
     </div>
     <div class="risk">
         <div class="sub">RISK CLASS:{"  "}</div>
-        <div class="data">{data.disrupt} [CRITICAL]</div>
-        <div class="icon"></div>
+        <div class="data">{data.risk} [CRITICAL]</div>
+        <!-- <div class="icon"></div> -->
     </div>
 </div>
 
@@ -143,13 +143,17 @@
         display: block;
         height: 100%;
         aspect-ratio: 1/1;
-        background-image: url(/amida.svg);
+        background-image: url(/site-342-files/amida.svg);
         animation:
             rotate 2s infinite linear reverse,
             flicker 100ms infinite linear;
         filter: blur(0.7px) !important;
         position: relative;
         z-index: 300;
+    }
+
+    .disrupt > .icon::after {
+        background-image: url(/site-342-files/critical.svg);
     }
 
     @media (max-width: 700px) {

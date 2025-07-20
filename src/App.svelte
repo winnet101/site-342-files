@@ -34,7 +34,7 @@
         width: 100%;
         height: 100%;
         z-index: 32;
-        background: url("/crt-filter2.png");
+        background: url("/site-342-files/crt-filter2.png");
         pointer-events: none;
         opacity: 0.4;
         zoom: 200%;
