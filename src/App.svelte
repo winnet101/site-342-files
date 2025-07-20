@@ -1,7 +1,9 @@
 <script lang="ts">
     import Article from "./components/Article.svelte";
     import Console from "./components/Console.svelte";
+    import EpilepsyWarning from "./components/EpilepsyWarning.svelte";
 
+    let accessibilityMode = $state<"on" | "off">();
     let loggedIn = $state(false);
 
     // TODO:
@@ -10,8 +12,16 @@
     // add redirect to a version without the flashing background (and persist between reloads!!)
 </script>
 
-<div class="overlay"></div>
-<Console bind:loggedIn></Console>
+<div
+    class="overlay"
+    style={`${accessibilityMode === "off" ? "animation-duration:100ms" : ""}`}
+></div>
+
+{#if accessibilityMode === undefined}
+    <EpilepsyWarning bind:accessibilityMode />
+{:else}
+    <Console bind:loggedIn></Console>
+{/if}
 {#if loggedIn}
     <Article />
 {/if}
@@ -28,7 +38,9 @@
         pointer-events: none;
         opacity: 0.4;
         zoom: 200%;
-        animation: opacity-flicker 100ms infinite linear;
+        animation-name: opacity-flicker;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
     }
 
     @keyframes opacity-flicker {

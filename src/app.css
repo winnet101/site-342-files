@@ -86,6 +86,7 @@ h4 {
 input {
     font-size: inherit;
     font-family: inherit;
+    color: inherit;
 }
 
 .card {

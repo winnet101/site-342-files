@@ -14,10 +14,12 @@
     <div class="disrupt">
         <div class="sub">DISRUPTION CLASS:{"  "}</div>
         <div class="data">{data.disrupt} [AMIDA]</div>
+        <div class="icon"></div>
     </div>
     <div class="risk">
         <div class="sub">RISK CLASS:{"  "}</div>
         <div class="data">{data.disrupt} [CRITICAL]</div>
+        <div class="icon"></div>
     </div>
 </div>
 
@@ -74,7 +76,6 @@
     }
 
     .classification {
-        position: relative;
         grid-area: class;
     }
 
@@ -87,6 +88,7 @@
     }
 
     .container > div {
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -124,8 +126,8 @@
     }
 
     .icon {
-        height: 50px;
-        width: 50px;
+        height: 50%;
+        aspect-ratio: 1/1;
         background: var(--purple-0);
         border: 5px solid white;
         border-radius: 50px;
@@ -139,8 +141,8 @@
     .icon::after {
         content: "";
         display: block;
-        height: 50px;
-        width: 50px;
+        height: 100%;
+        aspect-ratio: 1/1;
         background-image: url(/amida.svg);
         animation:
             rotate 2s infinite linear reverse,
@@ -148,6 +150,17 @@
         filter: blur(0.7px) !important;
         position: relative;
         z-index: 300;
+    }
+
+    @media (max-width: 700px) {
+        .icon {
+            height: 75%;
+        }
+
+        .disrupt > .icon,
+        .risk > .icon {
+            display: none;
+        }
     }
 
     @media (max-width: 350px) {

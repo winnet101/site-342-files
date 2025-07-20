@@ -102,9 +102,9 @@
         display: block; */
     }
 
-    /* .warning:last-child {
-        animation: horizontal-shake 100ms linear infinite;
-    } */
+    .warning:last-child {
+        z-index: 100;
+    }
 
     .main {
         width: 80%;

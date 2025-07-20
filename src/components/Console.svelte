@@ -1,57 +1,79 @@
 <script lang="ts">
     // TODO: create better transition between console and article
     // loading bar?
-
     import StringInput from "../lib/StringInput.svelte";
+    import { useChoice } from "../lib/useChoice.svelte";
 
     let { loggedIn = $bindable() }: { loggedIn: boolean } = $props();
 
     let messages: string[] = $state(["Enter a command or type 'help'."]);
     let isLoading = $state(false);
 
+    let [getChoice, choose, resolve] = useChoice<{ password: string }>();
+
+    let audioCurrentTime = $state(0);
+    let audioPaused = $state(true);
+
     async function parseInput(value: string) {
         value = value.toLocaleLowerCase();
-        switch (value) {
-            // case "delta delta omega sigma override":
-            //     for (let i = 0; i < 50; i++) {
-            //         messages.push("aaaaaaaaaaaa");
-            //     }
-            //     break;
-            case "help":
-            case "?":
-                messages.push("Type 'list' to view all available files.");
-                messages.push("Type 'clear' to clear the console.");
+        if (getChoice() === "password") {
+            resolve("password", value);
+            // Control flow returns to the switch-case
+        } else {
+            switch (value) {
+                case "help":
+                case "?":
+                    messages.push("Type 'list' to view all available files.");
+                    messages.push("Type 'clear' to clear the console.");
 
-                messages.push("");
-                break;
-            case "list":
-                messages.push("Available files:");
-                messages.push("  SCP-10442");
+                    messages.push("");
+                    break;
+                case "list":
+                    messages.push("Available files:");
+                    messages.push("  SCP-10442");
+                    messages.push("");
+                    messages.push(
+                        "Type the name or number of a file to open it."
+                    );
+                    messages.push("");
 
-                messages.push("");
-                messages.push("Type the name or number of a file to open it.");
-                messages.push("");
+                    break;
+                case "clear":
+                    messages = ["Enter a command or type 'help'."];
+                    break;
+                case "scp-10442":
+                case "10442":
+                    messages.push("Loading...");
+                    await wait(1000);
+                    messages.push("Error: The selected file is classified.");
+                    messages.push("Please enter your password to continue.");
+                    messages.push("");
 
-                break;
-            case "clear":
-                messages = ["Enter a command or type 'help'."];
-                break;
-            case "scp-10442":
-            case "10442":
-                messages.push("Loading...");
-                messages.push();
+                    isLoading = false;
+                    const password = await choose("password");
+                    isLoading = true;
+                    messages.push("");
 
-                await wait(1000);
-                messages = [];
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                    if (btoa(password) === "dGVuZWJyaXM=") {
+                        await wait(250);
+                        messages.push("Welcome, Director Void.");
+                        await wait(1000);
 
-                loggedIn = true;
-                return; // isLoading stays true
+                        messages = [];
+                        loggedIn = true;
+                        window.scrollTo({ top: 0, behavior: "smooth" });
 
-            default:
-                messages.push("Error: Command not recognized.");
-                messages.push("Type 'help' for commands.");
-                messages.push("");
+                        return; // isLoading stays true
+                    } else {
+                        messages.push("Error: Incorrect password.");
+                        messages.push("");
+                    }
+                    break;
+                default:
+                    messages.push("Error: Command not recognized.");
+                    messages.push("Type 'help' for commands.");
+                    messages.push("");
+            }
         }
 
         isLoading = false;
@@ -66,6 +88,14 @@
     }
 </script>
 
+<audio
+    src="site-342-files/click.mp3"
+    style="display:none"
+    volume="0.5"
+    bind:currentTime={audioCurrentTime}
+    bind:paused={audioPaused}
+></audio>
+
 <div class={`console-container`}>
     <div class="header-container">
         <h1 class="header">SITE-342</h1>
@@ -74,16 +104,23 @@
 
     <div class="message-container">
         {#each messages as msg, i}
-            <div
-                class="message"
-                style={msg.toLowerCase().trim().startsWith("err")
-                    ? "color: red"
-                    : msg.toLowerCase().trim().startsWith(">")
-                      ? "color: var(--purple-0)"
-                      : ""}
-            >
-                {msg}
-            </div>
+            {@const cleaned = msg.toLocaleLowerCase().trim()}
+            {#if cleaned.startsWith(">>")}
+                <div class="message" style="color: red">
+                    {msg.slice(2)}
+                </div>
+            {:else}
+                <div
+                    class="message"
+                    style={cleaned.startsWith("err")
+                        ? "color: red"
+                        : cleaned.startsWith(">")
+                          ? "color: var(--purple-0)"
+                          : ""}
+                >
+                    {msg}
+                </div>
+            {/if}
         {/each}
     </div>
     {#if !isLoading}
@@ -95,6 +132,12 @@
                     messages.push(`> ${value}`);
                     await wait(250);
                     await parseInput(value);
+                }}
+                onkeydown={() => {
+                    audioPaused = true;
+                    audioCurrentTime = 0.09;
+                    audioPaused = false;
+                    console.log("starting audio");
                 }}
                 showButton={false}
                 autofocus

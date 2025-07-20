@@ -8,11 +8,13 @@
         acceptEmpty = false,
         trimValue = true,
         showButton = true,
+        onkeydown,
         ...props
     }: Partial<HTMLInputAttributes> & {
         onSubmit:
             | ((value: string) => void)
             | ((value: string) => PromiseLike<void>);
+        onkeydown?: (e: KeyboardEvent) => void;
         submitOnEnter?: boolean;
         clearWhenSubmitted?: boolean;
         acceptEmpty?: boolean;
@@ -37,6 +39,7 @@
     class="stringInput_input_global_class"
     bind:value
     onkeydown={async (e) => {
+        onkeydown?.(e);
         if (submitOnEnter && e.key === "Enter") {
             await handleSubmit();
         }
