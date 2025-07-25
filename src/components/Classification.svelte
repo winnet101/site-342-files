@@ -1,8 +1,29 @@
 <script lang="ts">
     let {
         data,
-    }: { data: { classification: string; disrupt: number; risk: number } } =
-        $props();
+    }: {
+        data: {
+            classification: string;
+            disrupt: 1 | 2 | 3 | 4 | 5;
+            risk: 1 | 2 | 3 | 4 | 5;
+        };
+    } = $props();
+
+    const disruptionClass = {
+        1: "dark",
+        2: "vlam",
+        3: "keneq",
+        4: "ekhi",
+        5: "amida",
+    };
+
+    const riskClass = {
+        1: "notice",
+        2: "caution",
+        3: "warning",
+        4: "danger",
+        5: "critical",
+    };
 </script>
 
 <div class="container">
@@ -13,12 +34,20 @@
     </div>
     <div class="disrupt">
         <div class="sub">DISRUPTION CLASS:{"  "}</div>
-        <div class="data">{data.disrupt} [AMIDA]</div>
+        <div class="data">
+            {data.disrupt} [{Object.hasOwn(disruptionClass, data.risk)
+                ? disruptionClass[data.disrupt]
+                : "undefined"}]
+        </div>
         <!-- <div class="icon"></div> -->
     </div>
     <div class="risk">
         <div class="sub">RISK CLASS:{"  "}</div>
-        <div class="data">{data.risk} [CRITICAL]</div>
+        <div class="data">
+            {data.risk} [{Object.hasOwn(riskClass, data.risk)
+                ? riskClass[data.risk]
+                : "undefined"}]
+        </div>
         <!-- <div class="icon"></div> -->
     </div>
 </div>
@@ -36,6 +65,7 @@
         margin: 0 auto;
         height: max-content;
         max-width: 700px;
+        text-transform: uppercase;
     }
 
     @media (max-width: 700px) {

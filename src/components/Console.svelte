@@ -52,20 +52,20 @@
                     isLoading = false;
                     const password = await choose("password");
                     isLoading = true;
-                    messages.push("");
 
                     if (btoa(password) === "dGVuZWJyaXM=") {
-                        await wait(250);
-                        messages.push("Welcome, Director Void.");
                         await wait(1000);
+                        messages.push("Welcome, Director Void.");
+                        await wait(2000);
 
-                        messages = [];
+                        // messages = [];
                         loggedIn = true;
                         window.scrollTo({ top: 0, behavior: "smooth" });
 
                         return; // isLoading stays true
                     } else {
                         messages.push("Error: Incorrect password.");
+                        messages.push("Cancelling file access attempt.");
                         messages.push("");
                     }
                     break;
@@ -163,7 +163,7 @@
     .message-container {
         /* height: 10em; */
         margin-top: 2em;
-        width: 100vw;
+        width: 100%;
         max-width: inherit;
         overflow: hidden;
     }
@@ -200,6 +200,7 @@
         font-size: 1.2rem;
         max-height: 700px;
         max-width: 700px;
+        width: 80%;
         margin: 0 auto;
         /* overflow: hidden; */
 
@@ -214,7 +215,7 @@
     .input-container {
         display: grid;
         grid-template-columns: auto 1fr;
-        width: 100vw;
+        width: 100%;
         max-width: inherit;
         overflow: hidden;
     }
